@@ -10,7 +10,44 @@
 #warning "This project uses features only available in iOS SDK 3.0 and later."
 #endif
 
+#define Version [[[UIDevice currentDevice] systemVersion] doubleValue]
+#define Height(xx) xx >= 7.0?64:0
+#define imageName(xx) [UIColor colorWithPatternImage:[UIImage imageNamed:xx]]
+#define PP_RELEASE(xx)  xx = nil
+
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import "ShareData.h"
+    #import "HomePageViewController.h"
+    #import "ZhuceViewController.h"
+    #import "ChoosePageViewController.h"
+    #import "SavePageViewController.h"
+    #import "MakePageViewController.h"
+    #import "PreviewPageViewController.h"
+    #import "LoginPageViewController.h"
+    #import "SharePageViewController.h"
+
+    #import "UINavigationBar+Background.h"
+    #import "UIImageView+WebCache.h"
+    #import "MBProgressHUD.h"
+    #import "CHTumblrMenuView.h"
+    #import "PECropViewController.h"
+    #import "ImageSizeManager.h"
+    #import "CommonFunc.h"
+    #import "Reachability.h"
+    #import <MediaPlayer/MediaPlayer.h>
+    #import "SAVideoRangeSlider.h"
+    #import "TrimViewController.h"
+
+    #import "ASIHTTPRequest.h"
+    #import "ASIFormDataRequest.h"
+
+    #import "ZipArchive.h"
+    #import "WXApi.h"
+    #import "WXApiObject.h"
+    #import <TencentOpenAPI/QQApi.h>
+    #import <TencentOpenAPI/QQApiInterface.h>
+    #import <TencentOpenAPI/QQApiInterfaceObject.h>
+    #import <TencentOpenAPI/TencentOAuth.h>
 #endif

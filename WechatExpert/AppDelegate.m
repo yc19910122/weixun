@@ -14,8 +14,58 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    [ShareData shared].PageNumber = 0;
+    [ShareData shared].listDic = nil;
+    [ShareData shared].isNew = NO;
+
+    BOOL Flag = [self IsEnableWIFI];
+    if (Flag == YES) {
+        [ShareData shared].image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[ShareData bgImage]]]];
+    }
+    
+    _homePage = [[HomePageViewController alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:_homePage];
+    self.window.rootViewController = nav;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    [WXApi registerApp:@"wx5711daf42e137b8f"];
+
+    _tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"101047408" andDelegate:self];
+
+    return YES;
+}
+
+- (BOOL) IsEnableWIFI {
+    Reachability *r = [Reachability reachabilityWithHostName:@"www.apple.com"];
+    BOOL aa;
+    switch ([r currentReachabilityStatus]) {
+        case NotReachable:
+            // 没有网络连接
+            aa = NO;
+            break;
+        case ReachableViaWWAN:
+            // 使用3G网络
+            aa = NO;
+            break;
+        case ReachableViaWiFi:
+            // 使用WiFi网络
+            aa = YES;
+            break;
+    }
+    return aa;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    [TencentOAuth HandleOpenURL:url];
+    [WXApi handleOpenURL:url delegate:self];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    [TencentOAuth HandleOpenURL:url];
+    [WXApi handleOpenURL:url delegate:self];
     return YES;
 }
 

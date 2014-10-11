@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate,TencentSessionDelegate>
+{
+    HomePageViewController *_homePage;
+    TencentOAuth *_tencentOAuth;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
